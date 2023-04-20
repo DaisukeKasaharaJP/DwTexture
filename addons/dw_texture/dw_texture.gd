@@ -7,7 +7,7 @@ const GROUP_NAME = "res://addons/dw_texture/dw_texture.gd"
 
 var active := false
 
-export var remote_url:String setget set_remote_url  # https://example.com/xxx.png
+export var download_url:String setget set_download_url  # https://example.com/xxx.png
 export var cache_path:String setget set_cache_path  # user://caches/%s
 export var auto_download:bool = true setget set_auto_download
 export var max_connections:int = 3 setget set_max_connections
@@ -43,7 +43,7 @@ func load_texture():
 				active = false
 				return
 	
-	if remote_url:
+	if download_url:
 		if HttpNode == null:
 			HttpNode = HTTPRequest.new()
 			HttpNode.connect("request_completed", self, "_on_request_completed")
@@ -70,7 +70,7 @@ func _check_status():
 				active_status_count = active_status_count + 1
 		
 		if active_status_count < max_connections:
-			HttpNode.request(remote_url)
+			HttpNode.request(download_url)
 
 #
 #
@@ -115,8 +115,8 @@ func create_texture(image:Image):
 #
 #
 #
-func set_remote_url(url):
-	remote_url = url
+func set_download_url(url):
+	download_url = url
 	return self
 
 #
