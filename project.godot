@@ -24,7 +24,7 @@ config/name="DwTexture"
 
 [editor_plugins]
 
-enabled=PoolStringArray(  )
+enabled=PoolStringArray( "res://addons/dw_texture/plugin.cfg" )
 
 [gui]
 

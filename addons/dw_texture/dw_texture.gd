@@ -1,26 +1,37 @@
 class_name DwTexture, "DwTexture.svg"
 extends TextureRect
 
-signal texture_loaded
+signal texture_loaded(errno)
+signal error_response
 
 const GROUP_NAME = "res://addons/dw_texture/dw_texture.gd"
+
+enum ErrorEnum {
+	SUCCESS=0,
+	ERROR=1
+}
 
 var active := false
 
 export var download_url:String setget set_download_url  # https://example.com/xxx.png
-export var cache_path:String setget set_cache_path  # user://caches/%s
 export var auto_download:bool = true setget set_auto_download
 export var max_connections:int = 3 setget set_max_connections
 export var use_cache:bool = true setget set_use_cache
+export var cache_path:String setget set_cache_path  # user://caches/%s
 
 onready var HttpNode:HTTPRequest
 
+#
+#
+#
 func _ready():
-
 	if auto_download:
 		load_texture()
 
 
+#
+#
+#
 func _process(delta):
 	if active:
 		_check_status()
@@ -70,6 +81,7 @@ func _check_status():
 				active_status_count = active_status_count + 1
 		
 		if active_status_count < max_connections:
+			active = false
 			HttpNode.request(download_url)
 
 #
@@ -78,8 +90,8 @@ func _check_status():
 func _on_request_completed(result, response_code, headers, body):
 	if result != HTTPRequest.RESULT_SUCCESS:
 		print("Error retrieving image")
+		emit_signal("texture_loaded", ErrorEnum.ERROR)
 		return
-	active = false
 	create_image(body)
 	
 #
@@ -109,7 +121,7 @@ func create_texture(image:Image):
 	var texture = ImageTexture.new()
 	texture.create_from_image(image)
 	set_texture(texture)
-	emit_signal("texture_loaded")
+	emit_signal("texture_loaded", ErrorEnum.SUCCESS)
 	return texture
 
 #
