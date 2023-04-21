@@ -8,16 +8,6 @@
 
 config_version=4
 
-_global_script_classes=[ {
-"base": "TextureRect",
-"class": "DwTexture",
-"language": "GDScript",
-"path": "res://addons/dw_texture/dw_texture.gd"
-} ]
-_global_script_class_icons={
-"DwTexture": "res://addons/dw_texture/DwTexture.svg"
-}
-
 [application]
 
 config/name="DwTexture"

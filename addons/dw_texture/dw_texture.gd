@@ -1,4 +1,4 @@
-class_name DwTexture, "DwTexture.svg"
+#class_name DwTexture, "DwTexture.svg"
 extends TextureRect
 
 signal texture_loaded(errno)
