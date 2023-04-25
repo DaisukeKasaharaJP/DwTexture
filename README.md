@@ -11,4 +11,6 @@ You can:
 - Disable/enable using cache
 - set cache_path
 - Disable/enable Automatically downloads when ready
-- anytime manualy donwload called load_texture method
+- always download manually with the load_texture method.
+- set a max_connections on the number of simultaneous downloads.
+
