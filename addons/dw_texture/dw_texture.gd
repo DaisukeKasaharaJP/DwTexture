@@ -93,6 +93,7 @@ func _on_request_completed(result, response_code, headers, body):
 		emit_signal("texture_loaded", ErrorEnum.ERROR)
 		return
 	create_image(body)
+	emit_signal("texture_loaded", ErrorEnum.SUCCESS)
 	
 #
 #
