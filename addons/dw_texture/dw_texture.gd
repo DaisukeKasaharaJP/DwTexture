@@ -2,7 +2,6 @@
 extends TextureRect
 
 signal texture_loaded(errno)
-signal error_response
 
 const GROUP_NAME = "res://addons/dw_texture/dw_texture.gd"
 
